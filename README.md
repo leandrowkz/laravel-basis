@@ -1,5 +1,7 @@
 # Laravel Basis
-It provides a base layer, containing following classes:
+Laravel Basis is a package that provides a base layer to your application, containing CRUD operations and events.
+
+![Laravel Basis](laravel-basis.png?raw=true "Laravel Basis")
 
 * `Leandrowkz\Basis\Controllers\BaseController`
 * `Leandrowkz\Basis\Repositories\BaseRepository`
