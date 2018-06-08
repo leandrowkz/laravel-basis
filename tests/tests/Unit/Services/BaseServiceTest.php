@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Tests\Unit\Services;
+namespace Tests\Unit\Services;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
@@ -9,7 +9,7 @@ use Tests\App\Events\TaskUpdated;
 use Tests\App\Events\TaskCreated;
 use Tests\App\Models\Task;
 use Tests\App\Services\TaskService;
-use Tests\Tests\TestCase;
+use Tests\TestCase;
 
 class BaseServiceTest extends TestCase
 {

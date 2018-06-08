@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Tests\Unit\Controllers;
+namespace Tests\Unit\Controllers;
 
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\App\Http\Controllers\TaskController;
 use Tests\App\Models\Task;
-use Tests\Tests\TestCase;
+use Tests\TestCase;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BaseControllerTest extends TestCase

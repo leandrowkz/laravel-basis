@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Tests\Unit\Repositories;
+namespace Tests\Unit\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
 use Tests\App\Models\Task;
 use Tests\App\Repositories\TaskRepository;
-use Tests\Tests\TestCase;
+use Tests\TestCase;
 
 class BaseRepositoryTest extends TestCase
 {

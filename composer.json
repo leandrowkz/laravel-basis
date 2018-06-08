@@ -21,7 +21,8 @@
     "autoload": {
         "psr-4": {
           "Leandrowkz\\Basis\\": "src/",
-          "Tests\\": "tests/"
+          "Tests\\": "tests/tests/",
+          "Tests\\App\\": "tests/app/"
       }
     }
 }
