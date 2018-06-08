@@ -2,8 +2,13 @@
 
 namespace Leandrowkz\Basis\Services;
 
+use Leandrowkz\Basis\Traits\Filterable;
+use Leandrowkz\Basis\Traits\MutableProps;
+
 abstract class BaseService
 {
+    use Filterable, MutableProps;
+
     /**
      * Service repository. Starts with class name, but after
      * construct becomes an instance of this class.
@@ -28,7 +33,7 @@ abstract class BaseService
      */
     function __construct()
     {
-        $this->repo = app($this->repo);
+        $this->mutateProps();
     }
 
     /**

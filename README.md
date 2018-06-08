@@ -1,4 +1,6 @@
 # Laravel Basis
+[![Build Status](https://travis-ci.org/leandrowkz/basis.svg)](https://travis-ci.org/leandrowkz/basis)
+
 Laravel Basis is a package that provides a base layer to your application, containing CRUD operations and events.
 
 ![Laravel Basis](laravel-basis.png?raw=true "Laravel Basis")
@@ -47,4 +49,10 @@ Classes extended from BaseRepository must has the `$model` name. The create/upda
 This trait just adds to the target class an additional `$filters` attribute and a fluent getter/setter `filter()`.
 - `protected $filters`
 - `public function filter()`
+
+## License
+This code is published under the MIT License. This means you can do almost anything with it, as long as the copyright notice and the accompanying license file is left intact.
+
+## Contributing
+Feel free to send pull requests or create issues if you come across problems or have great ideas. Any input is appreciated!
 

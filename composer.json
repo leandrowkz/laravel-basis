@@ -2,20 +2,26 @@
     "name": "leandrowkz/laravel-basis",
     "description": "Laravel Basis is a package that provides a base layer to your application, containing CRUD operations and events.",
     "type": "project",
-    "require": {
-        "php": "^7.1",
-        "laravel/framework": "^5.6"
-    },
-    "autoload": {
-      "psr-4": {
-          "Leandrowkz\\Basis\\": "src/"
-      }
-    },
     "license": "MIT",
     "authors": [
         {
             "name": "Leandro Mangini Antunes",
             "email": "leandrowkz@gmail.com"
         }
-    ]
+    ],
+    "require": {
+        "php": "^7.1",
+        "laravel/framework": "^5.6"
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master",
+        "orchestra/testbench": "^3.6",
+        "fzaninotto/faker": "^1.7"
+    },
+    "autoload": {
+        "psr-4": {
+          "Leandrowkz\\Basis\\": "src/",
+          "Leandrowkz\\Basis\\Tests\\": "tests/"
+      }
+    }
 }

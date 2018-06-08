@@ -8,12 +8,12 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as LaravelController;
 use Illuminate\Support\Facades\Validator;
 use Leandrowkz\Basis\Interfaces\Http\Controllers\BaseControllerInterface;
+use Leandrowkz\Basis\Traits\MutableProps;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use ReflectionClass;
 
 abstract class BaseController extends LaravelController implements BaseControllerInterface
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, MutableProps;
 
     /**
      * @var \Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface
@@ -35,11 +35,7 @@ abstract class BaseController extends LaravelController implements BaseControlle
      */
     function __construct()
     {
-        $reflect = new ReflectionClass($this);
-        $props = $reflect->getProperties();
-        foreach ($props as $attribute)
-            if (class_exists($attribute))
-                $this->$attribute = app($attribute);
+        $this->mutateProps();
     }
 
     /**
@@ -48,7 +44,9 @@ abstract class BaseController extends LaravelController implements BaseControlle
      */
     public function validate()
     {
-        Validator::make(request()->all(), $this->request->rules())->validate();
+
+        if ($this->request)
+            Validator::make(request()->all(), $this->request->rules())->validate();
     }
 
     /**
