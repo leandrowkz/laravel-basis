@@ -1,5 +1,7 @@
 # Laravel Basis
 [![Build Status](https://travis-ci.com/leandrowkz/laravel-basis.svg?branch=master)](https://travis-ci.com/leandrowkz/laravel-basis)
+[![Latest Stable Version](https://poser.pugx.org/leandrowkz/laravel-basis/v/stable)](https://packagist.org/packages/leandrowkz/laravel-basis)
+[![License](https://poser.pugx.org/leandrowkz/laravel-basis/license)](https://packagist.org/packages/leandrowkz/laravel-basis)
 
 Laravel Basis is a package that provides a base layer to your application, containing CRUD operations and events.
 
