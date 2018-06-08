@@ -1,10 +1,10 @@
 <?php
 
-namespace Leandrowkz\Basis\Tests\App\Http\Controllers;
+namespace Tests\App\Http\Controllers;
 
 use Leandrowkz\Basis\Http\Controllers\BaseController;
-use Leandrowkz\Basis\Tests\App\Http\Requests\TaskRequest;
-use Leandrowkz\Basis\Tests\App\Services\TaskService;
+use Tests\App\Http\Requests\TaskRequest;
+use Tests\App\Services\TaskService;
 
 class TaskController extends BaseController
 {

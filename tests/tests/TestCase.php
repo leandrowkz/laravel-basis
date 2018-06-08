@@ -1,6 +1,6 @@
 <?php
 
-namespace Leandrowkz\Basis\Tests\Tests;
+namespace Tests\Tests;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
 

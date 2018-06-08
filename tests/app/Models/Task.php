@@ -1,6 +1,6 @@
 <?php
 
-namespace Leandrowkz\Basis\Tests\App\Models;
+namespace Tests\App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

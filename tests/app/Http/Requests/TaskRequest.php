@@ -1,6 +1,6 @@
 <?php
 
-namespace Leandrowkz\Basis\Tests\App\Http\Requests;
+namespace Tests\App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

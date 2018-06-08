@@ -1,9 +1,9 @@
 <?php
 
-namespace Leandrowkz\Basis\Tests\App\Repositories;
+namespace Tests\App\Repositories;
 
 use Leandrowkz\Basis\Repositories\BaseRepository;
-use Leandrowkz\Basis\Tests\App\Models\Task;
+use Tests\App\Models\Task;
 
 class TaskRepository extends BaseRepository
 {

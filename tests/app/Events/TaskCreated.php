@@ -1,12 +1,12 @@
 <?php
 
-namespace Leandrowkz\Basis\Tests\App\Events;
+namespace Tests\App\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Leandrowkz\Basis\Tests\App\Models\Task;
+use Tests\App\Models\Task;
 
 class TaskCreated
 {

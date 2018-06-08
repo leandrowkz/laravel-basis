@@ -1,12 +1,12 @@
 <?php
 
-namespace Leandrowkz\Basis\Tests\App\Services;
+namespace Tests\App\Services;
 
 use Leandrowkz\Basis\Services\BaseService;
-use Leandrowkz\Basis\Tests\App\Events\TaskCreated;
-use Leandrowkz\Basis\Tests\App\Events\TaskDeleted;
-use Leandrowkz\Basis\Tests\App\Events\TaskUpdated;
-use Leandrowkz\Basis\Tests\App\Repositories\TaskRepository;
+use Tests\App\Events\TaskCreated;
+use Tests\App\Events\TaskDeleted;
+use Tests\App\Events\TaskUpdated;
+use Tests\App\Repositories\TaskRepository;
 
 class TaskService extends BaseService
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace Leandrowkz\Basis\Tests\Tests\Unit\Repositories;
+namespace Tests\Tests\Unit\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Leandrowkz\Basis\Tests\App\Models\Task;
-use Leandrowkz\Basis\Tests\App\Repositories\TaskRepository;
-use Leandrowkz\Basis\Tests\Tests\TestCase;
+use Tests\App\Models\Task;
+use Tests\App\Repositories\TaskRepository;
+use Tests\Tests\TestCase;
 
 class BaseRepositoryTest extends TestCase
 {

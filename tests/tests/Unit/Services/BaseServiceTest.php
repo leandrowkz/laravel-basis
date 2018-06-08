@@ -1,15 +1,15 @@
 <?php
 
-namespace Leandrowkz\Basis\Tests\Tests\Unit\Services;
+namespace Tests\Tests\Unit\Services;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Builder;
-use Leandrowkz\Basis\Tests\App\Events\TaskCreated;
-use Leandrowkz\Basis\Tests\App\Events\TaskDeleted;
-use Leandrowkz\Basis\Tests\App\Events\TaskUpdated;
-use Leandrowkz\Basis\Tests\App\Models\Task;
-use Leandrowkz\Basis\Tests\App\Services\TaskService;
-use Leandrowkz\Basis\Tests\Tests\TestCase;
+use Tests\App\Events\TaskDeleted;
+use Tests\App\Events\TaskUpdated;
+use Tests\App\Events\TaskCreated;
+use Tests\App\Models\Task;
+use Tests\App\Services\TaskService;
+use Tests\Tests\TestCase;
 
 class BaseServiceTest extends TestCase
 {

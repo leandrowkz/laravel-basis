@@ -2,7 +2,7 @@
 
 use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
-use Leandrowkz\Basis\Tests\App\Models\Task;
+use Tests\App\Models\Task;
 
 class CreateTestbenchTasksTable extends Migration
 {

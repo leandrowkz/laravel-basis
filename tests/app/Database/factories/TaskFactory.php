@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use Leandrowkz\Basis\Tests\App\Models\Task;
+use Tests\App\Models\Task;
 
 $factory->define(Task::class, function (Faker $faker) {
     return [
