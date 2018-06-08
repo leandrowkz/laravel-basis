@@ -37,7 +37,7 @@ class BaseControllerTest extends TestCase
 
         // assert
         $this->assertInstanceOf(Task::class, $task);
-        $this->assertArraySubset($task->toArray(), $data);
+        $this->assertArraySubset($data, $task->toArray());
         $this->assertDatabaseHas('tasks', $data);
     }
 
