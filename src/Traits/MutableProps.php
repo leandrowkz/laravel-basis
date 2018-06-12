@@ -18,10 +18,12 @@ trait MutableProps
             $property->setAccessible(true);
             $value = $property->getValue($this);
 
-            if (is_string($value) && class_exists($value)) {
-                // Resolve through laravel app or instantiate normally
-                $this->{$property->name} = interface_exists($value) ? app($value) : new $value();
-            }
+            // Resolve through laravel app or instantiate normally
+            if (is_string($value))
+                if (class_exists($value))
+                    $this->{$property->name} = new $value();
+                elseif (interface_exists($value))
+                    $this->{$property->name} = app($value);
         }
     }
 }
