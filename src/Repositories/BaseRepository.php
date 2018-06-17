@@ -3,12 +3,9 @@
 namespace Leandrowkz\Basis\Repositories;
 
 use Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface;
-use Leandrowkz\Basis\Traits\Filterable;
 
 abstract class BaseRepository implements BaseRepositoryInterface
 {
-    use Filterable;
-
     /**
      * Repository Model class.
      *
@@ -22,13 +19,6 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * @var \Illuminate\Database\Eloquent\Builder
      */
     protected $builder;
-
-    /**
-     * Relations to be loaded.
-     *
-     * @var array
-     */
-    protected $relations = [];
 
     /**
      * Allowed methods.
@@ -69,89 +59,101 @@ abstract class BaseRepository implements BaseRepositoryInterface
      *
      * Ex:
      * ->query([
-     *      ['client_id', '=', 'saraiva-v5'],
-     *      ['start,end', 'range', ['2017-01-01', '2018-05-01']]
-     *      ['id', 'in', [1,2,3]]
+     *      'column' => 'value',            // equals
+     *      'column' => 'gte:value',        // greater than or equal
+     *      'column' => 'gt:value',         // greater than
+     *      'column' => 'lte:value',        // less than or equal
+     *      'column' => 'lt:value',         // less than
+     *      'column' => 'between:min,max',  // between
+     *      'column' => 'in:a,b,c',         // in
+     *      'column' => function() {},      // callable
+     *      'column' => 'or:value',         // whereOr
      * ])->orderBy()->get()
      *
-     * @param array|callable
+     * @param array
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query($filters)
     {
         $this->builder = $this->model::query();
 
-        if (!is_array($filters)) $filters = [$filters];
+        if (!is_array($filters))
+            return $this->builder;
 
-        foreach ($filters as $index => $where) {
-            $column = null;
-            $type = null;
-            $value = null;
+        $columns = with(new $this->model())->getFillable();
 
-            if (is_array($where)) {
-                $column = $where[0];
-                if (count($where) >= 3) {
-                    $type = $where[1];
-                    $value = $where[2];
-                } else {
-                    $type = false;
-                    $value = $where[1];
-                }
+        foreach ($filters as $column => $value) {
+
+            if (!in_array($column, $columns))
+                continue;
+
+            if (starts_with($value, 'boolean:')) {
+                $val = str_replace_first('boolean:', '', $value);
+                $this->builder->where($column, $val);
+                continue;
             }
 
-            if (is_callable($where))
-                $type = 'callable';
-
-            switch ($type) {
-
-                case 'in':
-                    $this->builder->whereIn($column, $value);
-                    break;
-
-                case 'or':
-                    $this->builder->orWhere($column, $value);
-                    break;
-
-                case 'range':
-                    $columns = explode(',', $column);
-                    $this->builder->where([
-                        [$columns[0], '>=', $value[0]],
-                        [$columns[1], '<=', $value[1]],
-                    ]);
-                    break;
-
-                case 'between':
-                    $this->builder->whereBetween($column, $value);
-                    break;
-
-                case 'callable':
-                    $this->builder->where($where);
-                    break;
-
-                default:
-                    if (!$type)
-                        $this->builder->where($column, $value);
-                    else
-                        $this->builder->where($column, $type, $value);
-                    break;
+            if (starts_with($value, 'gte:')) {
+                $val = str_replace_first('gte:', '', $value);
+                $this->builder->where($column, '>=', $val);
+                continue;
             }
+
+            if (starts_with($value, 'gt:')) {
+                $val = str_replace_first('gt:', '', $value);
+                $this->builder->where($column, '>', $val);
+                continue;
+            }
+
+            if (starts_with($value, 'lte:')) {
+                $val = str_replace_first('lte:', '', $value);
+                $this->builder->where($column, '<=', $val);
+                continue;
+            }
+
+            if (starts_with($value, 'lt:')) {
+                $val = str_replace_first('lt:', '', $value);
+                $this->builder->where($column, '<', $val);
+                continue;
+            }
+
+            if (starts_with($value, 'between:')) {
+                $val = str_replace_first('between:', '', $value);
+                $val = stristr($val, ',') ? explode(',', $val) : $val;
+                $this->builder->whereBetween($column, $val);
+                continue;
+            }
+
+            if (starts_with($value, 'in:')) {
+                $val = str_replace_first('in:', '', $value);
+                $val = stristr($val, ',') ? explode(',', $val) : $val;
+                $this->builder->whereIn($column, $val);
+                continue;
+            }
+
+            if (starts_with($value, 'or:')) {
+                $this->builder->orWhere($column, $value);
+                continue;
+            }
+
+            $this->builder->where($column, $value);
         }
 
         return $this->builder;
     }
 
     /**
-     * Gets/sets repository relations
+     * Gets/sets model
      *
-     * @param mixed $relations
+     * @param string $model
      * @return mixed array|$this
      */
-    public function relations(array $relations = null)
+    public function model(string $model = null)
     {
-        if (is_null($relations))
-            return $this->relations;
+        if (is_null($model))
+            return $this->model;
         else
-            $this->relations = $relations;
+            $this->model = $model;
 
         return $this;
     }
@@ -163,11 +165,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function all()
     {
-        return $this->query($this->filters)->with($this->relations)->get();
+        return $this->model::all();
     }
 
     /**
-     * Finds a single record. Returns with its relations
+     * Finds a single record.
      *
      * @param string $id
      * @return \Illuminate\Database\Eloquent\Model|false
@@ -177,7 +179,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
         if (!$model = $this->model::find($id))
             return false;
 
-        return $model->load($this->relations);
+        return $model;
     }
 
     /**

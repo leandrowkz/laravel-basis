@@ -2,13 +2,12 @@
 
 namespace Leandrowkz\Basis\Services;
 
-use Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface;
-use Leandrowkz\Basis\Traits\Filterable;
-use Leandrowkz\Basis\Traits\MutableProps;
+use Leandrowkz\Basis\Traits\FiltersCollections;
+use Leandrowkz\Basis\Traits\MutatesProps;
 
-abstract class BaseService implements BaseServiceInterface
+abstract class BaseService
 {
-    use Filterable, MutableProps;
+    use FiltersCollections, MutatesProps;
 
     /**
      * Service repository. Starts with class name, but after
@@ -75,7 +74,7 @@ abstract class BaseService implements BaseServiceInterface
      * @param array $data
      * @return mixed Leandrowkz\Basis\Repositories\BaseRepository::$model
      */
-    public function create(array $data = [])
+    public function create(array $data)
     {
         $new = $this->repo->create($data);
 
@@ -92,7 +91,7 @@ abstract class BaseService implements BaseServiceInterface
      * @param array $data
      * @return mixed Leandrowkz\Basis\Repositories\BaseRepository::$model
      */
-    public function update(string $id, array $data = [])
+    public function update(string $id, array $data)
     {
         $old = $this->repo->find($id);
         $new = $this->repo->update($id, $data);

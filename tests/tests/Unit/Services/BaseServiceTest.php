@@ -109,12 +109,24 @@ class BaseServiceTest extends TestCase
     public function it_query()
     {
         // arrange
-        $builder = $this->service->query([[
-            'status', 'todo'
-        ]]);
+        $builder = $this->service->query(['status' => 'todo']);
 
         // assert
         $this->assertInstanceOf(Builder::class, $builder);
         $this->assertInstanceOf(Collection::class, $builder->get());
+    }
+
+    /** @test */
+    public function it_filter()
+    {
+        // arrange
+        $data = $this->service->setFilters(['status' => 'todo'])->filter(
+            $this->service->all()
+        );
+
+        // assert
+        $this->assertInstanceOf(Collection::class, $data);
+        foreach ($data as $task)
+            $this->assertEquals($task->status, 'todo');
     }
 }

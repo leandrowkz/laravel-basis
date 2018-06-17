@@ -17,4 +17,6 @@ interface BaseControllerInterface
     public function validate();
 
     public function exists(string $id);
+
+    public function filterRequest();
 }

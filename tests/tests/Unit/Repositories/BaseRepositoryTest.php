@@ -100,32 +100,10 @@ class BaseRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_relations_empty()
-    {
-        // arrange
-        $relations = $this->repo->relations();
-
-        // assert
-        $this->assertEquals([], $relations);
-    }
-
-    /** @test */
-    public function it_relations_filled()
-    {
-        // arrange
-        $relations = $this->repo->relations(['some'])->relations();
-
-        // assert
-        $this->assertEquals(['some'], $relations);
-    }
-
-    /** @test */
     public function it_query()
     {
         // arrange
-        $builder = $this->repo->query([[
-            'status', 'todo'
-        ]]);
+        $builder = $this->repo->query(['status' => 'todo']);
 
         // assert
         $this->assertInstanceOf(Builder::class, $builder);

@@ -4,7 +4,7 @@ namespace Leandrowkz\Basis\Traits;
 
 use ReflectionClass;
 
-trait MutableProps
+trait MutatesProps
 {
     /**
      * Transforms string properties that are valid existing classes into
