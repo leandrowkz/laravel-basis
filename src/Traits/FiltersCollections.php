@@ -28,25 +28,16 @@ trait FiltersCollections
     protected $filters = [];
 
     /**
-     * Returns filters.
-     *
-     * @return array
-     */
-    public function getFilters()
-    {
-        return $this->filters;
-    }
-
-    /**
-     * Set filters.
+     * Get/Set filters.
      *
      * @param array $filters
      * @return $this
      */
-    public function setFilters($filters = [])
+    public function filters(array $filters = null)
     {
-        $filters = is_array($filters) ? $filters : [];
-        $this->filters = $filters;
+        if ($filters)
+            $this->filters = $filters;
+
         return $this;
     }
 
@@ -73,7 +64,7 @@ trait FiltersCollections
     public function filter(Collection $items, array $filters = null)
     {
         if ($filters)
-            $this->setFilters($filters);
+            $this->filters($filters);
 
         return new Collection(
 

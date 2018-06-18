@@ -2,6 +2,8 @@
 
 namespace Leandrowkz\Basis\Interfaces\Repositories;
 
+use Illuminate\Database\Eloquent\Model;
+
 interface BaseRepositoryInterface
 {
     public function all();
@@ -15,4 +17,6 @@ interface BaseRepositoryInterface
     public function update(string $id, array $data = []);
 
     public function delete(string $id);
+
+    public function model(string $model);
 }

@@ -6,6 +6,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\App\Http\Controllers\TaskController;
 use Tests\App\Models\Task;
+use Tests\App\Services\TaskService;
 use Tests\TestCase;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -125,6 +126,18 @@ class BaseControllerTest extends TestCase
         request()->replace($task);
 
         // act
-        $task = $this->controller->create();
+        $this->controller->create();
+    }
+
+    /** @test */
+    public function it_service()
+    {
+        // arrange
+        $service_01 = $this->controller->service();
+        $service_02 = $this->controller->service(new TaskService());
+
+        // assert
+        $this->assertInstanceOf(TaskService::class, $service_01);
+        $this->assertInstanceOf(TaskService::class, $service_02);
     }
 }

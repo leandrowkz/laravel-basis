@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as LaravelController;
 use Illuminate\Support\Facades\Validator;
 use Leandrowkz\Basis\Interfaces\Http\Controllers\BaseControllerInterface;
+use Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface;
 use Leandrowkz\Basis\Traits\MutatesProps;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -44,7 +45,21 @@ abstract class BaseController extends LaravelController implements BaseControlle
      */
     public function filterRequest()
     {
-        $this->service->setFilters(request()->all());
+        $this->service->filters(request()->all());
+    }
+
+    /**
+     * Get/Set service.
+     *
+     * @param \Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface $service
+     * @return \Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface $this->service
+     */
+    public function service(BaseServiceInterface $service = null)
+    {
+        if ($service)
+            $this->service = $service;
+
+        return $this->service;
     }
 
     /**

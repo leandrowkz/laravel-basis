@@ -120,4 +120,16 @@ class BaseRepositoryTest extends TestCase
         $this->assertInstanceOf(Builder::class, $builder);
         $this->assertInstanceOf(Collection::class, $builder->get());
     }
+
+    /** @test */
+    public function it_model()
+    {
+        // arrange
+        $model_01 = $this->repo->model();
+        $model_02 = $this->repo->model(Task::class);
+
+        // assert
+        $this->assertEquals(Task::class, $model_01);
+        $this->assertEquals(Task::class, $model_02);
+    }
 }

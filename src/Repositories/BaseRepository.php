@@ -2,6 +2,7 @@
 
 namespace Leandrowkz\Basis\Repositories;
 
+use Illuminate\Database\Eloquent\Model;
 use Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface;
 
 abstract class BaseRepository implements BaseRepositoryInterface
@@ -150,12 +151,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function model(string $model = null)
     {
-        if (is_null($model))
-            return $this->model;
-        else
+        if ($model)
             $this->model = $model;
 
-        return $this;
+        return $this->model;
     }
 
     /**

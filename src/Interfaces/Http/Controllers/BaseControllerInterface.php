@@ -2,6 +2,8 @@
 
 namespace Leandrowkz\Basis\Interfaces\Http\Controllers;
 
+use Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface;
+
 interface BaseControllerInterface
 {
     public function all();
@@ -19,4 +21,6 @@ interface BaseControllerInterface
     public function exists(string $id);
 
     public function filterRequest();
+
+    public function service(BaseServiceInterface $service = null);
 }

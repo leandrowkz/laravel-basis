@@ -2,10 +2,12 @@
 
 namespace Leandrowkz\Basis\Services;
 
+use Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface;
+use Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface;
 use Leandrowkz\Basis\Traits\FiltersCollections;
 use Leandrowkz\Basis\Traits\MutatesProps;
 
-abstract class BaseService
+abstract class BaseService implements BaseServiceInterface
 {
     use FiltersCollections, MutatesProps;
 
@@ -13,7 +15,7 @@ abstract class BaseService
      * Service repository. Starts with class name, but after
      * construct becomes an instance of this class.
      *
-     * @var \Leandrowkz\Basis\Repositories\BaseRepository
+     * @var \Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface
      */
     protected $repo;
 
@@ -34,6 +36,20 @@ abstract class BaseService
     function __construct()
     {
         $this->mutateProps();
+    }
+
+    /**
+     * Get/set repository.
+     *
+     * @param \Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface $repo
+     * @return \Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface $this->repo
+     */
+    public function repo(BaseRepositoryInterface $repo = null)
+    {
+        if ($repo)
+            $this->repo = $repo;
+
+        return $this->repo;
     }
 
     /**
@@ -58,23 +74,12 @@ abstract class BaseService
     }
 
     /**
-     * Return all data by where conditions.
-     *
-     * @param array $where
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function query($where)
-    {
-        return $this->repo->query($where);
-    }
-
-    /**
      * Creates a single record.
      *
      * @param array $data
      * @return mixed Leandrowkz\Basis\Repositories\BaseRepository::$model
      */
-    public function create(array $data)
+    public function create(array $data = [])
     {
         $new = $this->repo->create($data);
 
@@ -91,7 +96,7 @@ abstract class BaseService
      * @param array $data
      * @return mixed Leandrowkz\Basis\Repositories\BaseRepository::$model
      */
-    public function update(string $id, array $data)
+    public function update(string $id, array $data = [])
     {
         $old = $this->repo->find($id);
         $new = $this->repo->update($id, $data);

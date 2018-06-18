@@ -8,6 +8,7 @@ use Tests\App\Events\TaskDeleted;
 use Tests\App\Events\TaskUpdated;
 use Tests\App\Events\TaskCreated;
 use Tests\App\Models\Task;
+use Tests\App\Repositories\TaskRepository;
 use Tests\App\Services\TaskService;
 use Tests\TestCase;
 
@@ -106,10 +107,10 @@ class BaseServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_query()
+    public function it_repo_query()
     {
         // arrange
-        $builder = $this->service->query(['status' => 'todo']);
+        $builder = $this->service->repo()->query(['status' => 'todo']);
 
         // assert
         $this->assertInstanceOf(Builder::class, $builder);
@@ -120,13 +121,34 @@ class BaseServiceTest extends TestCase
     public function it_filter()
     {
         // arrange
-        $data = $this->service->setFilters(['status' => 'todo'])->filter(
+        $data_01 = $this->service->filters(['status' => 'todo'])->filter(
             $this->service->all()
+        );
+        $data_02 = $this->service->filter(
+            $this->service->all(),
+            ['status' => 'todo']
         );
 
         // assert
-        $this->assertInstanceOf(Collection::class, $data);
-        foreach ($data as $task)
+        $this->assertInstanceOf(Collection::class, $data_01);
+        $this->assertInstanceOf(Collection::class, $data_02);
+
+        foreach ($data_01 as $task)
             $this->assertEquals($task->status, 'todo');
+
+        foreach ($data_02 as $task)
+            $this->assertEquals($task->status, 'todo');
+    }
+
+    /** @test */
+    public function it_repo()
+    {
+        // arrange
+        $repo_01 = $this->service->repo();
+        $repo_02 = $this->service->repo(new TaskRepository);
+
+        // assert
+        $this->assertInstanceOf(TaskRepository::class, $repo_01);
+        $this->assertInstanceOf(TaskRepository::class, $repo_02);
     }
 }

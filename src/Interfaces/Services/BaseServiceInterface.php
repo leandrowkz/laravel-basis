@@ -3,12 +3,11 @@
 namespace Leandrowkz\Basis\Interfaces\Services;
 
 use Illuminate\Database\Eloquent\Collection;
+use Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface;
 
 interface BaseServiceInterface
 {
     public function all();
-
-    public function query($where);
 
     public function find(string $id);
 
@@ -18,5 +17,7 @@ interface BaseServiceInterface
 
     public function delete(string $id);
 
-    public function filter(Collection $items, $filters);
+    public function repo(BaseRepositoryInterface $repo = null);
+
+    public function filter(Collection $items, array $filters = null);
 }
