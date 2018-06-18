@@ -45,7 +45,7 @@ abstract class BaseController extends LaravelController implements BaseControlle
      */
     public function filterRequest()
     {
-        $this->service->filters(request()->all());
+        if ($this->service) $this->service->filters(request()->all());
     }
 
     /**
@@ -68,8 +68,7 @@ abstract class BaseController extends LaravelController implements BaseControlle
      */
     public function validate()
     {
-        if ($this->request)
-            Validator::make(request()->all(), $this->request->rules())->validate();
+        if ($this->request) Validator::make(request()->all(), $this->request->rules())->validate();
     }
 
     /**
