@@ -74,7 +74,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * @param array
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query($filters)
+    public function query($filters = null)
     {
         $this->builder = $this->model::query();
 

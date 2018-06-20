@@ -8,7 +8,7 @@ interface BaseRepositoryInterface
 {
     public function all();
 
-    public function query($where);
+    public function query($where = null);
 
     public function find(string $id);
 
