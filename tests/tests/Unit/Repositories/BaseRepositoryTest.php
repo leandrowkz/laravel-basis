@@ -126,7 +126,7 @@ class BaseRepositoryTest extends TestCase
     {
         // arrange
         $model_01 = $this->repo->model();
-        $model_02 = $this->repo->model(Task::class);
+        $model_02 = $this->repo->model(Task::class)->model();
 
         // assert
         $this->assertEquals(Task::class, $model_01);

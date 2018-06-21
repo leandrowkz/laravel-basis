@@ -52,12 +52,14 @@ abstract class BaseController extends LaravelController implements BaseControlle
      * Get/Set service.
      *
      * @param \Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface $service
-     * @return \Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface $this->service
+     * @return mixed \Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface|$this
      */
     public function service(BaseServiceInterface $service = null)
     {
-        if ($service)
+        if ($service) {
             $this->service = $service;
+            return $this;
+        }
 
         return $this->service;
     }

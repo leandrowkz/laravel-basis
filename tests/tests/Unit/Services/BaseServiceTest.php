@@ -145,7 +145,7 @@ class BaseServiceTest extends TestCase
     {
         // arrange
         $repo_01 = $this->service->repo();
-        $repo_02 = $this->service->repo(new TaskRepository);
+        $repo_02 = $this->service->repo(new TaskRepository)->repo();
 
         // assert
         $this->assertInstanceOf(TaskRepository::class, $repo_01);

@@ -134,7 +134,7 @@ class BaseControllerTest extends TestCase
     {
         // arrange
         $service_01 = $this->controller->service();
-        $service_02 = $this->controller->service(new TaskService());
+        $service_02 = $this->controller->service(new TaskService())->service();
 
         // assert
         $this->assertInstanceOf(TaskService::class, $service_01);

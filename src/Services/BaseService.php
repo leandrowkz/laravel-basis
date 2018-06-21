@@ -42,12 +42,14 @@ abstract class BaseService implements BaseServiceInterface
      * Get/set repository.
      *
      * @param \Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface $repo
-     * @return \Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface $this->repo
+     * @return mixed \Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface|$this
      */
     public function repo(BaseRepositoryInterface $repo = null)
     {
-        if ($repo)
+        if ($repo) {
             $this->repo = $repo;
+            return $this;
+        }
 
         return $this->repo;
     }
