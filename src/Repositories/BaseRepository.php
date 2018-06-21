@@ -147,7 +147,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * Gets/sets model
      *
      * @param string $model
-     * @return mixed array|$this
+     * @return mixed $this->model
      */
     public function model(string $model = null)
     {
