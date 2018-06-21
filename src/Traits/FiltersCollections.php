@@ -31,14 +31,14 @@ trait FiltersCollections
      * Get/Set filters.
      *
      * @param array $filters
-     * @return $this
+     * @return array $this->filters
      */
     public function filters(array $filters = null)
     {
         if ($filters)
             $this->filters = $filters;
 
-        return $this;
+        return $this->filters;
     }
 
     /**
@@ -51,7 +51,7 @@ trait FiltersCollections
     public function addFilter(string $key, $value = null)
     {
         $this->filters = array_add($this->filters, $key, $value);
-        return $this;
+        return $this->filters;
     }
 
     /**
