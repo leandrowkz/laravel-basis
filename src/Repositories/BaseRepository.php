@@ -172,7 +172,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     /**
      * Finds a single record.
      *
-     * @param string $id
+     * @param mixed string|array $id
      * @return mixed \Illuminate\Database\Eloquent\Model|
      *               \Illuminate\Database\Eloquent\Collection|
      *               false
