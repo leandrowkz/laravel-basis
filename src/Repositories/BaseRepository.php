@@ -173,9 +173,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * Finds a single record.
      *
      * @param string $id
-     * @return \Illuminate\Database\Eloquent\Model|false
+     * @return mixed \Illuminate\Database\Eloquent\Model|
+     *               \Illuminate\Database\Eloquent\Collection|
+     *               false
      */
-    public function find(string $id)
+    public function find($id)
     {
         if (!$model = $this->model::find($id))
             return false;

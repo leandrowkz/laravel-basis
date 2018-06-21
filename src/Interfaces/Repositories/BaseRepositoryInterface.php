@@ -10,7 +10,7 @@ interface BaseRepositoryInterface
 
     public function query($where = null);
 
-    public function find(string $id);
+    public function find($id);
 
     public function create(array $data = []);
 
