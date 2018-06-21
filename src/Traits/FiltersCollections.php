@@ -31,12 +31,14 @@ trait FiltersCollections
      * Get/Set filters.
      *
      * @param array $filters
-     * @return array $this->filters
+     * @return mixed $this|array
      */
     public function filters(array $filters = null)
     {
-        if ($filters)
+        if ($filters) {
             $this->filters = $filters;
+            return $this;
+        }
 
         return $this->filters;
     }
@@ -46,12 +48,23 @@ trait FiltersCollections
      *
      * @param string $key
      * @param mixed $value
-     * @return $this
+     * @return array $this->filters
      */
     public function addFilter(string $key, $value = null)
     {
         $this->filters = array_add($this->filters, $key, $value);
         return $this->filters;
+    }
+
+    /**
+     * Add a filter according with key/value.
+     *
+     * @param string $key
+     * @return mixed $this->filters[$key]|null
+     */
+    public function getFilter(string $key)
+    {
+        return $this->filters[$key] ?? null;
     }
 
     /**
