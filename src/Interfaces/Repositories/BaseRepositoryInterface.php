@@ -2,8 +2,6 @@
 
 namespace Leandrowkz\Basis\Interfaces\Repositories;
 
-use Illuminate\Database\Eloquent\Model;
-
 interface BaseRepositoryInterface
 {
     public function all();

@@ -4,12 +4,13 @@ namespace Leandrowkz\Basis\Services;
 
 use Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface;
 use Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface;
+use Leandrowkz\Basis\Traits\AccessibleProps;
 use Leandrowkz\Basis\Traits\FiltersCollections;
 use Leandrowkz\Basis\Traits\MutatesProps;
 
 abstract class BaseService implements BaseServiceInterface
 {
-    use FiltersCollections, MutatesProps;
+    use FiltersCollections, AccessibleProps, MutatesProps;
 
     /**
      * Service repository. Starts with class name, but after

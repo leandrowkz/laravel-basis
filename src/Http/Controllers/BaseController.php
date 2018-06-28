@@ -9,12 +9,13 @@ use Illuminate\Routing\Controller as LaravelController;
 use Illuminate\Support\Facades\Validator;
 use Leandrowkz\Basis\Interfaces\Http\Controllers\BaseControllerInterface;
 use Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface;
+use Leandrowkz\Basis\Traits\AccessibleProps;
 use Leandrowkz\Basis\Traits\MutatesProps;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 abstract class BaseController extends LaravelController implements BaseControllerInterface
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, MutatesProps;
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests, AccessibleProps, MutatesProps;
 
     /**
      * @var \Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface
