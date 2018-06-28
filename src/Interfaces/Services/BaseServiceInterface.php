@@ -20,4 +20,6 @@ interface BaseServiceInterface
     public function repo(BaseRepositoryInterface $repo = null);
 
     public function filter(Collection $items, array $filters = null);
+
+    public function applyRequestFilters();
 }

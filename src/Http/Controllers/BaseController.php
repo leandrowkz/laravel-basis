@@ -38,15 +38,6 @@ abstract class BaseController extends LaravelController implements BaseControlle
     function __construct()
     {
         $this->mutateProps();
-        $this->filterRequest();
-    }
-
-    /**
-     * Sets service filters according with given request inputs.
-     */
-    public function filterRequest()
-    {
-        if ($this->service) $this->service->filters(request()->all());
     }
 
     /**

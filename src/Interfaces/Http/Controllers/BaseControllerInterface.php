@@ -20,7 +20,5 @@ interface BaseControllerInterface
 
     public function exists(string $id);
 
-    public function filterRequest();
-
     public function service(BaseServiceInterface $service = null);
 }

@@ -37,6 +37,15 @@ abstract class BaseService implements BaseServiceInterface
     function __construct()
     {
         $this->mutateProps();
+        $this->applyRequestFilters();
+    }
+
+    /**
+     * Sets filters according with given request inputs.
+     */
+    public function applyRequestFilters()
+    {
+        $this->filters(request()->all());
     }
 
     /**
