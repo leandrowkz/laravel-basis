@@ -77,10 +77,10 @@ abstract class BaseService implements BaseServiceInterface
     /**
      * Return a single record.
      *
-     * @param string $id
+     * @param string|array $id
      * @return mixed Leandrowkz\Basis\Repositories\BaseRepository::$model
      */
-    public function find(string $id)
+    public function find($id)
     {
         return $this->repo->find($id);
     }

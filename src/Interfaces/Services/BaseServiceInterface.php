@@ -9,7 +9,7 @@ interface BaseServiceInterface
 {
     public function all();
 
-    public function find(string $id);
+    public function find($id);
 
     public function create(array $data = []);
 
