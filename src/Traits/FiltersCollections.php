@@ -21,6 +21,7 @@ trait FiltersCollections
      *      'column' => 'lt:value',         // less than
      *      'column' => 'between:min,max',  // between
      *      'column' => 'in:a,b,c',         // in
+     *      'or:column' => 'value'          // or clause for given column
      * ]
      *
      * @var array
@@ -79,21 +80,27 @@ trait FiltersCollections
         if ($filters)
             $this->filters($filters);
 
-        return new Collection(
+        $or = [];
 
-            $items->filter(function ($item) {
+        $collection = new Collection(
+
+            $items->filter(function ($item) use (&$or) {
 
                 $proceed = true;
                 foreach ($this->filters as $column => $value) {
 
-                    try {
-                        $validator = Validator::make($item->toArray(), [$column => $value]);
-                        if ($validator->fails()) $proceed = false;
-                    } catch (BadMethodCallException $e) {
-                        $needle = $item->{$column};
-                        if (is_bool($needle)) $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
-                        if (strtolower($value) == 'null') $value = null;
-                        if ($needle != $value) $proceed = false;
+                    if (starts_with($column, 'or:'))
+                        $or = array_add($or, str_replace('or:', '', $column), $value);
+                    else {
+                        try {
+                            $validator = Validator::make($item->toArray(), [$column => $value]);
+                            if ($validator->fails()) $proceed = false;
+                        } catch (BadMethodCallException $e) {
+                            $needle = $item->{$column};
+                            if (is_bool($needle)) $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+                            if (strtolower($value) == 'null') $value = null;
+                            if ($needle != $value) $proceed = false;
+                        }
                     }
                 }
 
@@ -101,5 +108,10 @@ trait FiltersCollections
 
             })->values()->all()
         );
+
+        if (count($or) > 0)
+            $collection = $collection->merge($this->filter($items, $or));
+
+        return $collection;
     }
 }
