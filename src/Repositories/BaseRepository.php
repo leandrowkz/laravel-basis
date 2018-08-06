@@ -213,7 +213,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         $model = $this->find($id);
         foreach ($model->getFillable() as $column) {
-            $model->$column = $data[$column] ?? $model->$column;
+            $model->$column = array_key_exists($column, $data) ? $data[$column] : $model->$column;
         }
         $model->save();
         return $model;
