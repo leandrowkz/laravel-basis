@@ -16,7 +16,7 @@ interface BaseControllerInterface
 
     public function delete(string $id);
 
-    public function validate();
+    public function validate(string $type);
 
     public function exists(string $id);
 

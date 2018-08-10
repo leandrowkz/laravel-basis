@@ -59,10 +59,16 @@ abstract class BaseController extends LaravelController implements BaseControlle
     /**
      * Validates controller request. If errors are found then redirect to
      * error messages with page status 422.
+     *
+     * @param string $type
      */
-    public function validate()
+    public function validate(string $type)
     {
-        if ($this->request) Validator::make(request()->all(), $this->request->rules())->validate();
+        $request = is_array($this->request) && $this->request[$type]
+            ? new $this->request[$type]()
+            : $this->request;
+
+        if ($request) Validator::make(request()->all(), $request->rules())->validate();
     }
 
     /**
@@ -105,7 +111,7 @@ abstract class BaseController extends LaravelController implements BaseControlle
      */
     public function create()
     {
-        $this->validate();
+        $this->validate('create');
         return $this->service->create(request()->all());
     }
 
@@ -118,7 +124,7 @@ abstract class BaseController extends LaravelController implements BaseControlle
     public function update(string $id)
     {
         $this->exists($id);
-        $this->validate();
+        $this->validate('update');
         return $this->service->update($id, request()->all());
     }
 
