@@ -36,7 +36,7 @@ trait FiltersCollections
      */
     public function filters(array $filters = null)
     {
-        if ($filters) {
+        if (isset($filters)) {
             $this->filters = $filters;
             return $this;
         }
