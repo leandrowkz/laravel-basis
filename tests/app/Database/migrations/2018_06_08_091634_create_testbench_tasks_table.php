@@ -17,7 +17,7 @@ class CreateTestbenchTasksTable extends Migration
             $table->timestamps();
             $table->increments('id');
             $table->string('title');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->string('status');
             $table->dateTime('due_date');
         });

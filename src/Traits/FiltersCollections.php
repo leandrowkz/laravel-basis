@@ -93,7 +93,8 @@ trait FiltersCollections
                         $or = array_add($or, str_replace('or:', '', $column), $value);
                     else {
                         try {
-                            $validator = Validator::make($item->toArray(), [$column => $value]);
+                            $value = is_null($value) ? 'null' : $value;
+                            $validator = Validator::make($item->toArray(), [$column => [$value, 'required']]);
                             if ($validator->fails()) $proceed = false;
                         } catch (BadMethodCallException $e) {
                             $needle = $item->{$column};
