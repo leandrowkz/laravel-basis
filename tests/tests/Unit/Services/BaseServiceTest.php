@@ -118,60 +118,6 @@ class BaseServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_filter()
-    {
-        // arrange
-        $data_01 = $this->service->filters(['status' => 'todo'])->filter(
-            $this->service->all()
-        );
-        $data_02 = $this->service->filter(
-            $this->service->all(),
-            ['status' => 'todo']
-        );
-
-        // assert
-        $this->assertInstanceOf(Collection::class, $data_01);
-        $this->assertInstanceOf(Collection::class, $data_02);
-
-        foreach ($data_01 as $task)
-            $this->assertEquals($task->status, 'todo');
-
-        foreach ($data_02 as $task)
-            $this->assertEquals($task->status, 'todo');
-    }
-
-    /** @test */
-    public function it_filter_empty_values()
-    {
-        // arrange
-        $task = factory(Task::class)->make(['status' => ''])->toArray();
-        $this->service->create($task);
-        $data_01 = $this->service->filters(['status' => 'todo'])->filter(
-            $this->service->all()
-        );
-
-        $task = factory(Task::class)->make(['description' => null])->toArray();
-        $this->service->create($task);
-        $data_02 = $this->service->filters(['description' => null])->filter(
-            $this->service->all()
-        );
-
-        $data_03 = $this->service->filters(['description' => 'null'])->filter(
-            $this->service->all()
-        );
-
-        // assert
-        foreach ($data_01 as $task)
-            $this->assertNotEquals($task->status, '');
-
-        foreach ($data_02 as $task)
-            $this->assertNull($task->description);
-
-        foreach ($data_03 as $task)
-            $this->assertNull($task->description);
-    }
-
-    /** @test */
     public function it_repo()
     {
         // arrange

@@ -94,12 +94,14 @@ trait FiltersCollections
                     else {
                         try {
                             $value = is_null($value) ? 'null' : $value;
-                            $validator = Validator::make($item->toArray(), [$column => [$value, 'required']]);
+                            $rules = !is_array($value) ? [$value] : $value;
+                            if (isset($item->{$column})) array_push($rules, 'required');
+                            $validator = Validator::make($item->toArray(), [$column => $rules]);
                             if ($validator->fails()) $proceed = false;
                         } catch (BadMethodCallException $e) {
                             $needle = $item->{$column};
                             if (is_bool($needle)) $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
-                            if (strtolower($value) == 'null') $value = null;
+                            if (!is_array($value) && strtolower($value) == 'null') $value = null;
                             if ($needle != $value) $proceed = false;
                         }
                     }
