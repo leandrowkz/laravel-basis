@@ -19,7 +19,7 @@ class FiltersCollectionsTest extends TestCase
     /**
      * Setup the test environment.
      */
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
         $this->service = new TaskService();
@@ -107,8 +107,6 @@ class FiltersCollectionsTest extends TestCase
         $tasks = $this->service->filter(
             $this->service->all()
         );
-
-        dump($now, $before, $tasks);
 
         // assert
         foreach ($tasks as $task)
