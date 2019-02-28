@@ -10,7 +10,7 @@ trait FiltersCollections
 {
     /**
      * Use the same validation rules set on:
-     * https://laravel.com/docs/5.6/validation#available-validation-rules
+     * https://laravel.com/docs/5.7/validation#available-validation-rules
      *
      * Array of filters. Ex:
      * [
@@ -42,6 +42,17 @@ trait FiltersCollections
         }
 
         return $this->filters;
+    }
+
+    /**
+     * Reset filters.
+     *
+     * @return mixed $this
+     */
+    public function clearFilters()
+    {
+        $this->filters = [];
+        return $this;
     }
 
     /**

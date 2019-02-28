@@ -2,7 +2,6 @@
 
 namespace Leandrowkz\Basis\Services;
 
-use Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface;
 use Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface;
 use Leandrowkz\Basis\Traits\AccessibleProps;
 use Leandrowkz\Basis\Traits\FiltersCollections;
@@ -13,23 +12,11 @@ abstract class BaseService implements BaseServiceInterface
     use FiltersCollections, AccessibleProps, MutatesProps;
 
     /**
-     * Service repository. Starts with class name, but after
-     * construct becomes an instance of this class.
+     * Repository Model class.
      *
-     * @var \Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface
+     * @var \Illuminate\Database\Eloquent\Model
      */
-    protected $repo;
-
-    /**
-     * All basic service events.
-     *
-     * @var array
-     */
-    protected $events = [
-        'created' => null,
-        'deleted' => null,
-        'updated' => null,
-    ];
+    protected $model;
 
     /**
      * Service constructor.
@@ -42,6 +29,8 @@ abstract class BaseService implements BaseServiceInterface
 
     /**
      * Sets filters according with given request inputs.
+     * 
+     * @return void
      */
     public function applyRequestFilters()
     {
@@ -49,90 +38,92 @@ abstract class BaseService implements BaseServiceInterface
     }
 
     /**
-     * Get/set repository.
+     * Gets/sets model
      *
-     * @param \Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface $repo
-     * @return mixed \Leandrowkz\Basis\Interfaces\Repositories\BaseRepositoryInterface|$this
+     * @param string $model
+     * @return mixed $this->model|$this
      */
-    public function repo(BaseRepositoryInterface $repo = null)
+    public function model(string $model = null)
     {
-        if ($repo) {
-            $this->repo = $repo;
+        if ($model) {
+            $this->model = $model;
             return $this;
         }
-
-        return $this->repo;
+        return $this->model;
     }
 
     /**
-     * Return all data.
+     * Gets a Collection of all data from model.
      *
-     * @return \Illuminate\Database\Eloquent\Collection;
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function all()
     {
-        return $this->repo->all();
+        return $this->filter(
+            $this->model::all()
+        );
     }
 
     /**
-     * Return a single record.
+     * Finds a single record.
      *
-     * @param string|array $id
-     * @return mixed Leandrowkz\Basis\Repositories\BaseRepository::$model
+     * @param mixed string|array $id
+     * @return mixed \Illuminate\Database\Eloquent\Model|
+     *               \Illuminate\Database\Eloquent\Collection|
+     *               false
      */
     public function find($id)
     {
-        return $this->repo->find($id);
+        if (!$model = $this->model::find($id))
+            return false;
+
+        return $model;
     }
 
     /**
-     * Creates a single record.
+     * Create a single record for model.
      *
      * @param array $data
-     * @return mixed Leandrowkz\Basis\Repositories\BaseRepository::$model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function create(array $data = [])
     {
-        $new = $this->repo->create($data);
-
-        if (!is_null($this->events['created']))
-            event(new $this->events['created']($new));
-
-        return $new;
+        $model = new $this->model();
+        foreach ($model->getFillable() as $column) {
+            if ($column != $model->getKeyName())
+                $model->$column = $data[$column] ?? null;
+        }
+        $model->save();
+        return $model;
     }
 
     /**
-     * Updates a single record.
+     * Update a single record for model.
      *
      * @param string $id
      * @param array $data
-     * @return mixed Leandrowkz\Basis\Repositories\BaseRepository::$model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function update(string $id, array $data = [])
     {
-        $old = $this->repo->find($id);
-        $new = $this->repo->update($id, $data);
-
-        if (!is_null($this->events['updated']))
-            event(new $this->events['updated']($new, $old));
-
-        return $new;
+        $model = $this->find($id);
+        foreach ($model->getFillable() as $column) {
+            $model->$column = array_key_exists($column, $data) ? $data[$column] : $model->$column;
+        }
+        $model->save();
+        return $model;
     }
 
     /**
      * Deletes a single record.
      *
      * @param string $id
-     * @return mixed Leandrowkz\Basis\Repositories\BaseRepository::$model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function delete(string $id)
     {
-        $old = $this->repo->find($id);
-        $this->repo->delete($id);
-
-        if (!is_null($this->events['deleted']))
-            event(new $this->events['deleted']($old));
-
-        return $old;
+        $model = $this->find($id);
+        $this->model::destroy($id);
+        return $model;
     }
 }

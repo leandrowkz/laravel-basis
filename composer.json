@@ -1,6 +1,7 @@
 {
     "name": "leandrowkz/laravel-basis",
-    "description": "Laravel Basis is a package that provides a base layer to your application, containing CRUD operations and events.",
+    "version": "3.0.0",
+    "description": "Laravel Basis is a package that provides a base service layer to your application, containing CRUD operations.",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -11,12 +12,12 @@
     ],
     "require": {
         "php": "^7.1",
-        "laravel/framework": "^5.6"
+        "laravel/framework": "5.7"
     },
     "require-dev": {
         "mockery/mockery": "dev-master",
-        "orchestra/testbench": "^3.6",
-        "fzaninotto/faker": "^1.7"
+        "orchestra/testbench": "3.6",
+        "fzaninotto/faker": "1.7"
     },
     "autoload": {
         "psr-4": {

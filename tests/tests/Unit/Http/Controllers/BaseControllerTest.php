@@ -113,7 +113,7 @@ class BaseControllerTest extends TestCase
         $this->expectException(NotFoundHttpException::class);
 
         // act
-        $this->controller->find(270987134908132671956);
+        $this->controller->find('270987134908132671956');
     }
 
     /** @test */

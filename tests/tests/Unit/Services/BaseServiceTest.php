@@ -3,12 +3,7 @@
 namespace Tests\Unit\Services;
 
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Builder;
-use Tests\App\Events\TaskDeleted;
-use Tests\App\Events\TaskUpdated;
-use Tests\App\Events\TaskCreated;
 use Tests\App\Models\Task;
-use Tests\App\Repositories\TaskRepository;
 use Tests\App\Services\TaskService;
 use Tests\TestCase;
 
@@ -32,7 +27,6 @@ class BaseServiceTest extends TestCase
     public function it_create()
     {
         // arrange
-        $this->expectsEvents(TaskCreated::class);
         $data = factory(Task::class)->make()->toArray();
 
         // act
@@ -48,7 +42,6 @@ class BaseServiceTest extends TestCase
     public function it_update()
     {
         // arrange
-        $this->expectsEvents(TaskUpdated::class);
         $old = factory(Task::class)->make()->toArray();
         $new = factory(Task::class)->make()->toArray();
 
@@ -67,7 +60,6 @@ class BaseServiceTest extends TestCase
     public function it_delete()
     {
         // arrange
-        $this->expectsEvents(TaskDeleted::class);
         $old = factory(Task::class)->make()->toArray();
 
         // act
@@ -99,6 +91,7 @@ class BaseServiceTest extends TestCase
     public function it_all()
     {
         // arrange
+        factory(Task::class)->create();
         $tasks = $this->service->all();
 
         // assert
@@ -107,25 +100,14 @@ class BaseServiceTest extends TestCase
     }
 
     /** @test */
-    public function it_repo_query()
+    public function it_model()
     {
         // arrange
-        $builder = $this->service->repo()->query(['status' => 'todo']);
+        $model_01 = $this->service->model();
+        $model_02 = $this->service->model(Task::class)->model();
 
         // assert
-        $this->assertInstanceOf(Builder::class, $builder);
-        $this->assertInstanceOf(Collection::class, $builder->get());
-    }
-
-    /** @test */
-    public function it_repo()
-    {
-        // arrange
-        $repo_01 = $this->service->repo();
-        $repo_02 = $this->service->repo(new TaskRepository)->repo();
-
-        // assert
-        $this->assertInstanceOf(TaskRepository::class, $repo_01);
-        $this->assertInstanceOf(TaskRepository::class, $repo_02);
+        $this->assertEquals(Task::class, $model_01);
+        $this->assertEquals(Task::class, $model_02);
     }
 }

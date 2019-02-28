@@ -23,7 +23,7 @@ abstract class BaseController extends LaravelController implements BaseControlle
     protected $service;
 
     /**
-     * @var \Illuminate\Http\Request
+     * @var \Illuminate\Http\Request|array
      */
     protected $request;
 
@@ -75,11 +75,14 @@ abstract class BaseController extends LaravelController implements BaseControlle
      * Check if given id exists and if not, throws a NotFoundHttpException exception.
      *
      * @param string $id
+     * @return  mixed   \Symfony\Component\HttpKernel\Exception\NotFoundHttpException|true
      */
     public function exists(string $id)
     {
         if (!$this->service->find($id))
             throw new NotFoundHttpException($this->notFoundMessage);
+
+        return true;
     }
 
     /**
@@ -96,7 +99,8 @@ abstract class BaseController extends LaravelController implements BaseControlle
      * Single record.
      *
      * @param string $id
-     * @return \Illuminate\Database\Eloquent\Model|NotFoundHttpException
+     * @return  mixed   \Illuminate\Database\Eloquent\Model|
+     *                  \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function find(string $id)
     {
@@ -119,7 +123,8 @@ abstract class BaseController extends LaravelController implements BaseControlle
      * Update resource.
      *
      * @param string $id
-     * @return \Illuminate\Database\Eloquent\Model|NotFoundHttpException
+     * @return  mixed   \Illuminate\Database\Eloquent\Model|
+     *                  \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function update(string $id)
     {
@@ -132,7 +137,8 @@ abstract class BaseController extends LaravelController implements BaseControlle
      * Delete resource.
      *
      * @param string $id
-     * @return \Illuminate\Database\Eloquent\Model|NotFoundHttpException
+     * @return  mixed   \Illuminate\Database\Eloquent\Model|
+     *                  \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function delete(string $id)
     {

@@ -23,7 +23,7 @@ class CreateTestbenchTasksTable extends Migration
         });
 
         $now = Carbon::now();
-        factory(Task::class, rand(10, 50))->create();
+        factory(Task::class, 50)->create();
     }
 
     /**
