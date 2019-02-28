@@ -1,6 +1,5 @@
 {
     "name": "leandrowkz/laravel-basis",
-    "version": "3.0.0",
     "description": "Laravel Basis is a package that provides a base service layer to your application, containing CRUD operations.",
     "type": "project",
     "license": "MIT",
