@@ -15,7 +15,7 @@
     },
     "require-dev": {
         "mockery/mockery": "1.2",
-        "orchestra/testbench": "3.8",
+        "orchestra/testbench": "4.0",
         "fzaninotto/faker": "1.8"
     },
     "autoload": {

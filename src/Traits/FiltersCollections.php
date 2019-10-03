@@ -4,6 +4,8 @@ namespace Leandrowkz\Basis\Traits;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use BadMethodCallException;
 
 trait FiltersCollections
@@ -64,7 +66,7 @@ trait FiltersCollections
      */
     public function addFilter(string $key, $value = null)
     {
-        $this->filters = array_add($this->filters, $key, $value);
+        $this->filters = Arr::add($this->filters, $key, $value);
         return $this->filters;
     }
 
@@ -100,8 +102,8 @@ trait FiltersCollections
                 $proceed = true;
                 foreach ($this->filters as $column => $value) {
 
-                    if (starts_with($column, 'or:'))
-                        $or = array_add($or, str_replace('or:', '', $column), $value);
+                    if (Str::startsWith($column, 'or:'))
+                        $or = Arr::add($or, str_replace('or:', '', $column), $value);
                     else {
                         try {
                             $value = is_null($value) ? 'null' : $value;
