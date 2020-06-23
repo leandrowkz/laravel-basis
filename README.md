@@ -10,7 +10,6 @@ Laravel Basis is a package that provides a base CRUD layer for your application.
 * `Leandrowkz\Basis\Controllers\BaseController`
 * `Leandrowkz\Basis\Services\BaseService`
 * `Leandrowkz\Basis\Traits\AccessibleProps`
-* `Leandrowkz\Basis\Traits\FiltersCollections`
 * `Leandrowkz\Basis\Traits\MutatesProps`
 
 These classes provides an easy way to CRUD operations inside Laravel apps. All you have to do is to extend and configure your classes from those available here.
@@ -43,7 +42,7 @@ public function delete(string $id);
 public function model(string $model = null);
 ```
 
-#### `Leandrowkz\Basis\Traits\FiltersCollections`
+#### `Leandrowkz\Basis\Traits\AccessibleProps`
 This trait adds to the target class fluent getters/setters to access any property through a method with same name. As a caveat it breaks any property visibility.
 ```php
 protected $foo = 1;
@@ -52,14 +51,6 @@ $this->foo(); // returns 1;
 $this->bar(); // returns 2;
 $this->foo(3); // sets $this->foo as 3;
 $this->bar(3); // sets $this->bar as 3;
-```
-
-#### `Leandrowkz\Basis\Traits\FiltersCollections`
-This trait just adds to the target class an additional `$filters` attribute and a `filter` method. This method filters a Collection based on current `$this->filters` value. Ex:
-```php
-protected $filters = ['status' => 'foo', 'category' => 'bar'];
-$this->filters(array $filters); // Getter/setter
-$this->filter(Collection $items); // Returns all items with status = foo and category = bar
 ```
 
 #### `Leandrowkz\Basis\Traits\MutatesProps`
