@@ -4,12 +4,11 @@ namespace Leandrowkz\Basis\Services;
 
 use Leandrowkz\Basis\Interfaces\Services\BaseServiceInterface;
 use Leandrowkz\Basis\Traits\AccessibleProps;
-use Leandrowkz\Basis\Traits\FiltersCollections;
 use Leandrowkz\Basis\Traits\MutatesProps;
 
 abstract class BaseService implements BaseServiceInterface
 {
-    use FiltersCollections, AccessibleProps, MutatesProps;
+    use AccessibleProps, MutatesProps;
 
     /**
      * Repository Model class.
@@ -24,17 +23,6 @@ abstract class BaseService implements BaseServiceInterface
     function __construct()
     {
         $this->mutateProps();
-        $this->applyRequestFilters();
-    }
-
-    /**
-     * Sets filters according with given request inputs.
-     * 
-     * @return void
-     */
-    public function applyRequestFilters()
-    {
-        $this->filters(request()->all());
     }
 
     /**
@@ -59,9 +47,7 @@ abstract class BaseService implements BaseServiceInterface
      */
     public function all()
     {
-        return $this->filter(
-            $this->model::all()
-        );
+        return $this->model::all();
     }
 
     /**
