@@ -11,12 +11,12 @@
     ],
     "require": {
         "php": "^7.3",
-        "laravel/framework": "7.0.*"
+        "laravel/framework": "^7.0"
     },
     "require-dev": {
-        "mockery/mockery": "1.2",
-        "orchestra/testbench": "4.0",
-        "fzaninotto/faker": "1.8"
+        "mockery/mockery": "1.4.0",
+        "orchestra/testbench": "5.3.0",
+        "fzaninotto/faker": "1.9.1"
     },
     "autoload": {
         "psr-4": {

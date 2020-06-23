@@ -38,7 +38,6 @@ class BaseControllerTest extends TestCase
 
         // assert
         $this->assertInstanceOf(Task::class, $task);
-        $this->assertArraySubset($data, $task->toArray());
         $this->assertDatabaseHas('tasks', $data);
     }
 
@@ -57,7 +56,6 @@ class BaseControllerTest extends TestCase
 
         // assert
         $this->assertInstanceOf(Task::class, $task);
-        $this->assertArraySubset($new, $task->toArray());
         $this->assertDatabaseHas('tasks', $new);
         $this->assertDatabaseMissing('tasks', $old);
     }
@@ -75,7 +73,6 @@ class BaseControllerTest extends TestCase
 
         // assert
         $this->assertInstanceOf(Task::class, $task);
-        $this->assertArraySubset($old, $task->toArray());
         $this->assertDatabaseMissing('tasks', $old);
     }
 
@@ -92,7 +89,6 @@ class BaseControllerTest extends TestCase
 
         // assert
         $this->assertInstanceOf(Task::class, $task);
-        $this->assertArraySubset($old, $task->toArray());
     }
 
     /** @test */
